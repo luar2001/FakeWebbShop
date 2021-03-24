@@ -1,8 +1,8 @@
 /**
  * by Lukas Aronsson
  */
-let numberOfItems = 6; // the number of div boxes we want displayed.
-let numberOfProducts = 20; //the number of products that exist in the json api form fakestoreapi https://fakestoreapi.herokuapp.com/
+const numberOfItems = 6; // the number of div boxes we want displayed.
+const numberOfProducts = 20; //the number of products that exist in the json api form fakestoreapi https://fakestoreapi.herokuapp.com/
 
 /**
  * Randomizes and returns a number between min and max.
@@ -37,6 +37,7 @@ function makeListOfIds(numberOfIds) {
  *
  * @link fakestoreapi = https://fakestoreapi.herokuapp.com/
  * @param {id} productId - id of product on fakestoreapi.
+ * @return {product} returns a product.
  */
 function getProduct(productId) {}
 
@@ -48,17 +49,24 @@ function getProduct(productId) {}
  * @param {integer} price - pruducts price.
  * @param {link} image - link to an image of product.
  */
-function displayProduct(name, description, price, image) {
-  document.getElementById("testProduct").innerHTML =
-    "<h2>" +
-    name +
-    "</h2>" +
-    '<p class="text-primary">' +
-    description +
-    "</p>" +
-    '<p class="price">' +
-    price +
-    "</p>";
+function displayProduct(name, description, price, image, numberOfItems) {
+  for (var i = 0; i < numberOfItems; i++) {
+    $("#testProduct" + i).html(
+      "<h2>" +
+        name +
+        "</h2>" +
+        '<img src="' +
+        image +
+        '" alt="nickcage"></img>' +
+        '<p class="text-primary">' +
+        description +
+        "</p>" +
+        '<p class="price">' +
+        price +
+        " Kronor " +
+        "</p>"
+    );
+  }
 }
 
 /**
@@ -76,7 +84,8 @@ function products(numberOfItems, numberOfProducts) {
     "testname",
     "testDescription",
     10000,
-    "https://www.placecage.com/200/300"
+    "https://www.placecage.com/g/200/300",
+    numberOfItems
   ); // call to displayProduct with test values.
 }
 
