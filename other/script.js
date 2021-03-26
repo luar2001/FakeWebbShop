@@ -4,6 +4,7 @@
 
 const numberOfItems = 12; // the number of div boxes we want displayed.
 const numberOfProducts = 20; //the number of products that exist in the json api form fakestoreapi https://fakestoreapi.herokuapp.com/
+const api = "https://fakestoreapi.herokuapp.com/products/";
 
 /**
  * gets an array of products based on product ids from the website fakestoreapi.
@@ -11,32 +12,22 @@ const numberOfProducts = 20; //the number of products that exist in the json api
  * @link fakestoreapi = https://fakestoreapi.herokuapp.com/
  * @parm numberOfItems - the number of products to save from fakestoreapi
  */
-function getProducts(numberOfItems) {
+function products(numberOfItems, api) {
   const xhr = new XMLHttpRequest();
 
-  xhr.open("GET", `https://fakestoreapi.herokuapp.com/products/`);
+  xhr.open("GET", api);
   xhr.send();
   xhr.onreadystatechange = function () {
     if (xhr.readyState === 4 && xhr.status === 200) {
-      const json = JSON.parse(xhr.response);
-      renderJSON(json);
+      const data = JSON.parse(xhr.response);
+      displayProducts(data, numberOfItems);
     }
   };
-
-  function renderJSON(data) {
-    if (Array.isArray(data)) {
-      console.log("IS ARRAY :(");
-      displayProducts(data, numberOfItems);
-    } else {
-      console.log("ITS NOT ARRAY :)");
-    }
-  }
 }
 
 /**
  * displayes a product on the page by creating a div.
  *
- * @link fakestoreapi = https://fakestoreapi.herokuapp.com/
  * @param {array} products - an array of json that are products form fakestoreAPI
  */
 function displayProducts(products, numberOfItems) {
@@ -65,18 +56,7 @@ function displayProducts(products, numberOfItems) {
   }
 }
 
-/**
- *
- *
- * @param {integer} numberOfItems - the number of div boxes we want displayed.
- * @param {integer} numberOfProducts - the number of products that exist in the json api form fakestoreapi.
- * @link fakestoreapi = https://fakestoreapi.herokuapp.com/.
- */
-function products(numberOfItems) {
-  getProducts(numberOfItems);
-}
-
-products(numberOfItems); //test call of products
+products(numberOfItems, api);
 
 // TODO: make the header work correctly by manualy hiding and showing when the hamburger menu is pressed
 
