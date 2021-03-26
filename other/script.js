@@ -4,7 +4,8 @@
 
 const numberOfItems = 12; // the number of div boxes we want displayed.
 const numberOfProducts = 20; //the number of products that exist in the json api form fakestoreapi https://fakestoreapi.herokuapp.com/
-const api = "https://fakestoreapi.herokuapp.com/products/";
+const api = "https://fakestoreapi.herokuapp.com/products/"; // the jsonAPI that vill be used to get products
+let navbutton = true; //boolean for navBar
 
 /**
  * gets an array of products based on product ids from the website fakestoreapi.
@@ -57,6 +58,26 @@ function displayProducts(products, numberOfItems) {
 }
 
 products(numberOfItems, api);
+hide();
+
+$("#navButton").click(navBar(navButton));
+
+function navBar(navButton) {
+  if (navButton) {
+    navButton = false;
+    show();
+  } else {
+    navButton = true;
+    hide();
+  }
+}
+
+function hide() {
+  $("#navbarColor01").hide();
+}
+function show() {
+  $("#navbarColor01").show();
+}
 
 // TODO: make the header work correctly by manualy hiding and showing when the hamburger menu is pressed
 
