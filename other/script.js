@@ -58,26 +58,6 @@ function displayProducts(products, numberOfItems) {
 }
 
 products(numberOfItems, api);
-hide();
-
-$("#navButton").click(navBar(navButton));
-
-function navBar(navButton) {
-  if (navButton) {
-    navButton = false;
-    show();
-  } else {
-    navButton = true;
-    hide();
-  }
-}
-
-function hide() {
-  $("#navbarColor01").hide();
-}
-function show() {
-  $("#navbarColor01").show();
-}
 
 // TODO: make the header work correctly by manualy hiding and showing when the hamburger menu is pressed
 
