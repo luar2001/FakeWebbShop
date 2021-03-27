@@ -45,13 +45,11 @@
           <li class="nav-item">
             <a class="nav-link" href="../index.html">Home</a>
           </li>
+          <li class="nav-item">
+            <a class="nav-link" href="about.html">About</a>
+          </li>
           <li class="nav-item active">
             <a class="nav-link" href="#"
-              >About <span class="sr-only">(current)</span></a
-            >
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="cart.html"
               ><svg
                 xmlns="http://www.w3.org/2000/svg"
                 width="16"
@@ -64,26 +62,82 @@
                   d="M0 2.5A.5.5 0 0 1 .5 2H2a.5.5 0 0 1 .485.379L2.89 4H14.5a.5.5 0 0 1 .485.621l-1.5 6A.5.5 0 0 1 13 11H4a.5.5 0 0 1-.485-.379L1.61 3H.5a.5.5 0 0 1-.5-.5zM3.14 5l1.25 5h8.22l1.25-5H3.14zM5 13a1 1 0 1 0 0 2 1 1 0 0 0 0-2zm-2 1a2 2 0 1 1 4 0 2 2 0 0 1-4 0zm9-1a1 1 0 1 0 0 2 1 1 0 0 0 0-2zm-2 1a2 2 0 1 1 4 0 2 2 0 0 1-4 0z"
                 />
               </svg>
+              <span class="sr-only">(current)</span>
             </a>
           </li>
         </ul>
       </div>
     </nav>
-    <!--Container with information thats on an about us page -->
-    <div class="jumbotron">
-      <h1 class="display-3">About us</h1>
-      <p class="lead">
-        We are a fake webb shop that uses the Fake Store Api created by
-        MohammadReza Keikavousi. This webb shop was created as a school
-        asignment and will most likly not be maintained after the asignment is
-        dune.
-      </p>
-      <hr class="my-4" />
-      <p>
-        Bellow are links to all the external recorces i used to create this
-        page.
-      </p>
+
+    <div id="cartList">
+      <!--TODO: Figure out cart!-->
     </div>
+
+    <form id="orderFrom">
+      <fieldset>
+        <legend>Order Information</legend>
+        <div class="form-group row">
+          <div class="form-group">
+            <label class="col-form-label" for="nameInputt">Name</label>
+            <input
+              type="text"
+              class="form-control"
+              placeholder="Enter your name"
+              id="nameInputt"
+            />
+          </div>
+          <div class="form-group">
+            <label for="emailInput">Email address</label>
+            <input
+              type="email"
+              class="form-control"
+              id="emailInput"
+              aria-describedby="emailHelp"
+              placeholder="Enter email"
+            />
+            <small id="emailHelp" class="form-text text-muted"
+              >We'll never share your email with anyone else.</small
+            >
+          </div>
+          <div class="form-group">
+            <label for="staticEmail" class="col-sm-2 col-form-label"
+              >Email example</label
+            >
+            <div class="col-sm-10">
+              <input
+                type="text"
+                readonly=""
+                class="form-control-plaintext"
+                id="staticEmail"
+                value="email@example.com"
+              />
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="col-form-label" for="phoneInputt">Phone number</label>
+            <input
+              type="tel"
+              class="form-control"
+              placeholder="0123456789"
+              pattern=""
+              id="phoneInputt"
+            /><!--TODO LOW: FIGURE OUT A phone PATTERN  -->
+          </div>
+          <div class="form-group">
+            <label class="col-form-label" for="addressInputt">Address</label>
+            <input
+              type="text"
+              class="form-control"
+              placeholder="Enter your address"
+              id="addressInputt"
+            />
+          </div>
+        </div>
+      </fieldset>
+      <button id="formButton" type="submit" class="btn btn-primary">
+        Purchase
+      </button>
+    </form>
 
     <footer>
       <p>

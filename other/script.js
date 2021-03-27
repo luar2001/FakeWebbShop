@@ -61,6 +61,13 @@ products(numberOfItems, api);
 
 // TODO: make the header work correctly by manualy hiding and showing when the hamburger menu is pressed
 
+// TODO: make cart work (how do i do that ? )
+// TODO: drop down to change amount of product
+
+// TODO: Validate forms
+
+// TODO: Tanck you for Your order pop up
+
 //REDUNDANT BELOW (wanted to randomise the shown items but ran out of time and patience)
 
 /**
@@ -74,7 +81,7 @@ function makeListOfIds(numberOfIds) {
   let ids = [numberOfIds];
   for (var i = 0; i < numberOfIds; i++) {
     ids[i] = randomNumber(1, numberOfIds); //randomNumber between 1-20
-    // TODO: randomNumber remove values that have already been added
+    // TODO LOW:randomNumber remove values that have already been added
   }
   return ids;
 }
@@ -87,6 +94,6 @@ function makeListOfIds(numberOfIds) {
  * @return {integer} a randomised number between min and max.
  */
 function randomNumber(min, max) {
-  // TODO: maby optimize (remove the min value because it will always be 1)
+  // TODO LOW: maby optimize (remove the min value because it will always be 1)
   return Math.floor(Math.random() * (max - min + 1)) + min; // random number between min and max
 }

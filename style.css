@@ -20,7 +20,7 @@
 }
 
 footer {
-  /*TODO: make it not fixed to the screen but at the bottom of the screen (Low priority)*/
+  /*TODO LOW: fix so that it stops blocking objects on the page */
   /*postion at the bottom*/
   position: fixed;
   bottom: 0;
@@ -46,4 +46,8 @@ footer {
 
 .productButton {
   position: flex;
+}
+
+#orderForm {
+  width: 50%;
 }
