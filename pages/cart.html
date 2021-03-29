@@ -112,12 +112,18 @@
             <input
               type="tel"
               class="form-control"
+              aria-describedby="phoneHelp"
               placeholder="0123456789"
               value=""
               name="phone"
               id="phone"
               required
             />
+            <small id="phoneHelp" class="form-text text-muted"
+              >(123) 456-7890 | (123)456-7890 | 123-456-7890 | 123.456.7890 |
+              +31636363634 | Be sure to remove spaces at the end and
+              begining</small
+            >
           </div>
           <div class="form-group">
             <label class="col-form-label" for="address">Address</label>
