@@ -19,7 +19,7 @@ function clearOrder() {
   localStorage.clear();
 }
 
-function ContinueShoping() {
+function continueShoping() {
   clearCart();
   window.location.assign("../index.html");
 }
@@ -28,6 +28,8 @@ function displayOrder() {
   getCart();
 
   order.forEach((product) => {
-    `<h2>${product.title}</h2><p>${product.price} €</p>`;
+    $("#purchaseInfo").prepend(
+      `<h2>${product.title}</h2><p>${product.price} €</p>`
+    );
   });
 }

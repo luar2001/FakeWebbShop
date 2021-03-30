@@ -95,14 +95,13 @@ function removeFromCart(index) {
 }
 
 // TODO: drop down to change amount of product
-// TODO: CHECK if there are products in the cart
 
 /**
  * when the validation sucseeed, this sends the user to the order page and sets the cart again
  */
 function orderSuccess() {
   setCart();
-  window.location.assign("order-confirmation.html"); //gose by the relative location to cart.html not the script.js file
+  window.location.assign("confirmation.html"); //gose by the relative location to cart.html not the script.js file
 }
 
 /**
@@ -195,6 +194,7 @@ function validateAddress(address) {
  * when the purchase button is clicked
  */
 form.addEventListener("submit", (e) => {
+  e.preventDefault(); //prevents page reload on submit
   if (
     validateName(name.value) &&
     validateEmail(email.value) &&
@@ -205,7 +205,6 @@ form.addEventListener("submit", (e) => {
     orderSuccess();
   }
   if (message.length > 0) {
-    e.preventDefault(); //prevents page reload on submit
     errorMessage.innerHTML = message.join("\n , ");
   }
 });
