@@ -7,16 +7,26 @@ const email = document.getElementById("email");
 const phonenumber = document.getElementById("phone");
 const address = document.getElementById("address");
 const errorMessage = document.getElementById("errorMessage");
+const sum = document.getElementById("totalPrice");
 let message = []; //error messages (gets put in a di)
 let cart = []; //stores all the products that are in the cart
-let totalSum = 0; //the total value in € of the cart
+
+/**
+ * Removes the form so that the user can't purchase if there is not products
+ */
+function removeForm() {
+  $("#orderFrom").remove();
+}
 
 /**
  * sets cart to whats stored in localStorage
  */
 function getCart() {
   if (localStorage.getItem("cart") === null) {
-    console.log("no products in cart");
+    $("#cartList").prepend(
+      '<h2 style="text-align:center"><B>Cart is empty</b></h2>'
+    );
+    removeForm();
   } else {
     cart = JSON.parse(localStorage.getItem("cart")); //  cart = localstorage cart
   }
@@ -30,12 +40,23 @@ function setCart() {
 }
 
 /**
+ * puts and calculates the sum of all products under the cart
+ * @param {Integer} Sum - the totalSum of the price of all products
+ */
+function totalSum(Sum) {
+  if (Sum > 0) {
+    sum.innerHTML = "Total Price " + Sum + " €";
+  }
+}
+
+/**
  * calls getCart() then takes cart and displayes the products in the cart
  */
 function cartList() {
   getCart();
 
   let productsId = 0;
+  let Sum = 0; //the total value in € of the cart
 
   cart.forEach((product) => {
     $("#cartList").prepend(
@@ -53,8 +74,10 @@ function cartList() {
         </button>
       </div>`
     ) && productsId++;
-    totalSum += product.price;
+    Sum += product.price;
   });
+
+  totalSum(Sum);
 }
 
 /**

@@ -72,16 +72,17 @@
     <div id="cartList">
       <hr />
       <div id="cartBottomRow">
-        <div id="totalPrice"></dib´v>
+        <div id="totalPrice"></div>
         <button
           type="button"
           id="removeAll"
           class="btn btn-primary"
-          onclick="window.localStorage.clear()"
+          onclick="localStorage.clear(), window.location.reload()"
         >
           REMOVE ALL
         </button>
       </div>
+      <hr />
     </div>
 
     <div id="errorMessage"></div>
