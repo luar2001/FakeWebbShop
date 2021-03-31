@@ -98,4 +98,32 @@ function addToCart(product) {
   window.location.assign("pages/cart.html");
 }
 
+/**
+ *
+ */
+function amount() {
+  let amount = []; //the amount of each product
+
+  getAmount();
+  setAmount();
+  /**
+   * gets amount form localStorage
+   */
+  function getAmount() {
+    if (localStorage.getItem("amount") === null) {
+      console.log("no previous amounts");
+    } else {
+      amount = JSON.parse(localStorage.getItem("amount"));
+    }
+  }
+
+  /**
+   * stores the amount array in localStorage
+   */
+  function setAmount() {
+    localStorage.setItem("amount", JSON.stringify(amount)); //updates the cart
+  }
+}
+
 products(numberOfItems, api);
+amount();

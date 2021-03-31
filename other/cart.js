@@ -7,8 +7,9 @@ const email = document.getElementById("email");
 const phonenumber = document.getElementById("phone");
 const address = document.getElementById("address");
 const errorMessage = document.getElementById("errorMessage");
-const sum = document.getElementById("totalPrice");
+const sumbox = document.getElementById("totalPrice");
 let message = []; //error messages (gets put in a di)
+let tempCart = []; //temporary cart, before amount
 let cart = []; //stores all the products that are in the cart
 
 /**
@@ -28,7 +29,23 @@ function getCart() {
     );
     removeForm();
   } else {
-    cart = JSON.parse(localStorage.getItem("cart")); //  cart = localstorage cart
+    tempCart = JSON.parse(localStorage.getItem("cart")); //  cart = localstorage cart
+    console.log("tempCart");
+    console.log(tempCart);
+    for (let i = 0; i < tempCart.length; i++) {
+      if (
+        tempCart[i].amount == false ||
+        tempCart[i].amount == undefined ||
+        tempCart[i].amount == NaN
+      ) {
+        getAmount();
+      }
+    }
+    combineDuplicates();
+    console.log("newTempCart");
+    console.log(tempCart);
+    cart = tempCart;
+    setCart();
   }
 }
 
@@ -40,12 +57,37 @@ function setCart() {
 }
 
 /**
- * puts and calculates the sum of all products under the cart
- * @param {Integer} Sum - the totalSum of the price of all products
+ * gets amount form localStorage and then calls addnewAmount
  */
-function totalSum(Sum) {
-  if (Sum > 0) {
-    sum.innerHTML = "Total Price " + Sum + " €";
+function getAmount() {
+  tempCart.forEach((product) => {
+    product.amount = 1;
+    console.log("product already had an amount of " + product.amount);
+  });
+}
+
+function combineDuplicates() {
+  for (let tempid = 0; tempid < tempCart.length; tempid++) {
+    for (let i = 0; i < tempCart.length; i++) {
+      if (tempid !== i) {
+        if (tempCart[tempid]["id"] === tempCart[i]["id"]) {
+          tempCart[tempid]["amount"] = tempCart[tempid]["amount"] + 1;
+          removeDuplicates(i);
+        }
+      }
+    }
+  }
+}
+
+function removeDuplicates(index) {
+  tempCart.splice(index, 1); //removes tempCart[index]
+}
+
+function changeAmount(index, value) {
+  if (cart[index]["amount"] >= 1 && cart[index]["amount"] < 5) {
+    cart[index]["amount"] += value;
+    document.getElementById("amount" + index).innerHTML = cart[index]["amount"];
+    setCart();
   }
 }
 
@@ -54,30 +96,48 @@ function totalSum(Sum) {
  */
 function cartList() {
   getCart();
-
   let productsId = 0;
-  let Sum = 0; //the total value in € of the cart
+  let sum = 0; //the total value in € of the cart
 
   cart.forEach((product) => {
     $("#cartList").prepend(
       `<div id="cartProduct${productsId}" class="cartProduct">
         <img class="cartImage" src="${product.image}" alt="cartImage${productsId}"></img>
         <p class="cartName">${product.title}</p>
+        <div class="amountBox">
+        <button type="button" id="cartProduct${productsId}Plus" class="plusAndMinus, btn" onclick="changeAmount(${productsId},1)"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-plus-circle" viewBox="0 0 16 16">
+        <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/>
+        <path d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z"/>
+        </svg></button>
+        <p id="amount${productsId}" class="amountText">${product.amount}</p>
+        <button type="button" id="cartProduct${productsId}Minus" class="plusAndMinus, btn" onclick="changeAmount(${productsId},-1)"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-dash-circle" viewBox="0 0 16 16">
+        <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/>
+        <path d="M4 8a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 0 1h-7A.5.5 0 0 1 4 8z"/>
+        </svg></button></div>
         <p class="cartPrice">${product.price} €</p>
         <button
           type="button"
           class="btn btn-primary , removeButton"
           id="removeProduct${productsId}"
-          value="${productsId}"
           onclick="removeFromCart(${productsId})">
-          REMOVE
+          REMOVE>
         </button>
       </div>`
     ) && productsId++;
-    Sum += product.price;
+    sum += product.price * product.amount;
   });
 
-  totalSum(Sum);
+  totalSum(sum);
+}
+
+/**
+ * puts and calculates the sum of all products under the cart
+ * @param {Integer} sum - the totalSum of the price of all products
+ */
+function totalSum(sum) {
+  if (sum > 0) {
+    sumbox.innerHTML = "Total Price " + sum + " €";
+  }
 }
 
 /**
@@ -86,15 +146,15 @@ function cartList() {
  */
 function removeFromCart(index) {
   cart.splice(index, 1);
+  removeDuplicates(index, 1);
   if (cart.length <= 0) {
     localStorage.removeItem("cart");
   } else {
     setCart();
+    setAmount();
   }
   window.location.reload();
 }
-
-// TODO: drop down to change amount of product
 
 /**
  * when the validation sucseeed, this sends the user to the order page and sets the cart again
